@@ -14,17 +14,23 @@ def generate_board():
 def validate_board(tiles):
     inversions = 0
     valid = False
-        if (for i in tiles):
-            if i >= (for j in tiles):
-            inversions +=1
-        if inversions%2 == 0:
-            valid = True
+    if (for i in tiles):
+        if i >= (for j in tiles):
+        inversions +=1
+    if inversions%2 == 0:
+        valid = True
     return valid
 
 def calculate_hamming(state):
+    hamming_distance = 0
+    for i in state:
+        for j in goal:
+            if i != j: hamming_distance += 1
     return hamming_distance
 
 def calculate_manhattan_distance(state):
+    manhattan_distance = 0
+
     return manhattan_distance
 
 generate_board()
