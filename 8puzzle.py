@@ -31,9 +31,8 @@ def validate_board(tiles):
 
 def calculate_hamming(state):
     hamming_distance = 0
-    for i in state:
-        for j in goal:
-            if i != j: hamming_distance += 1
+    for i in range(8):
+        if state[i] != goal[i]: hamming_distance += 1
     return hamming_distance
 
 def calculate_manhattan_distance(state):
