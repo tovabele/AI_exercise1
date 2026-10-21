@@ -32,16 +32,16 @@ def calculate_hamming(state):
 
 def calculate_manhattan_distance(state):
     manhattan_distance = 0
-    for i in range(len(goal)):
-        disty = 0
-        for row in range(3):
-            distx = 0
-            disty += 1
-            manhattan_distance += 1
-            for col in range(3):
-                distx +=1
-                if state[col * 3 + row] == goal[i]:
-                    manhattan_distance += disty + distx
+    for i in range(8):
+        row_state = 0
+        col_state = 0
+        for row_state in range(3):
+            for col_state in range(3):
+                row_goal = int(i/(row_state+1))
+                col_goal = i%(row_state+1)
+                if state[row_state * 3 + col_state] == goal[i]:
+                    manhattan_distance += (abs(row_state - row_goal) + abs(col_state - col_goal))
+
     return manhattan_distance
 
 def build_board(tiles):
