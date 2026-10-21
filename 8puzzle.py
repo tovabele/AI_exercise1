@@ -32,7 +32,16 @@ def calculate_hamming(state):
 
 def calculate_manhattan_distance(state):
     manhattan_distance = 0
-
+    for i in range(len(goal)):
+        disty = 0
+        for row in range(3):
+            distx = 0
+            disty += 1
+            manhattan_distance += 1
+            for col in range(3):
+                distx +=1
+                if state[col * 3 + row] == goal[i]:
+                    manhattan_distance += disty + distx
     return manhattan_distance
 
 def build_board(tiles):
@@ -50,6 +59,7 @@ def print_board(board):
 
 tiles  = generate_tiles()
 hamming_distance = calculate_hamming(tiles)
+manhattan_dist = calculate_manhattan_distance(tiles)
 
 print("Goal:      ", goal)
 goal_board = build_board(goal)
@@ -59,5 +69,5 @@ print("Generated: ", tiles)
 new_board = build_board(tiles)
 print_board(new_board)
 print ('Hamming distance: ', hamming_distance)
-
+print ('Manhattan dist.   ', manhattan_dist)
 
