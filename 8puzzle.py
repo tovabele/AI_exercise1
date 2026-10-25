@@ -2,19 +2,18 @@ import random
 import heuristics
 
 #using '9' as empty field to allow inversion detection by value
-goal = [1,2,3,4,5,6,7,8,9]
-
-state = tuple
+goal = (1,2,3,4,5,6,7,8,9)
 
 
-def generate_tiles():
-    #use array.copy() to prevent shuffling the original list!
-    tiles =  goal.copy()
-    random.shuffle(tiles)
-    while validate_board(tiles) == False:
-        #print(tiles)
-        random.shuffle(tiles)
-    return tiles
+
+def generate_starttiles(goal):
+    gen_tiles = list(goal)
+    random.shuffle(gen_tiles)
+    while validate_board(gen_tiles) == False:
+        #print(gen_tiles)
+        random.shuffle(gen_tiles)
+    # return a immutable object
+    return tuple(gen_tiles)
 
 def validate_board(tiles):
     inversions = 0
@@ -46,7 +45,7 @@ print("Goal:      ", goal)
 goal_board = build_board(goal)
 print_board(goal_board)
 
-tiles  = generate_tiles()
+tiles  = generate_starttiles(goal)
 hamming_distance = heuristics.calculate_hamming(goal, tiles)
 manhattan_dist = heuristics.calculate_manhattan_distance(goal, tiles)
 
@@ -70,6 +69,8 @@ print ('Manhattan dist.   ', manhattan_dist)
  # heuristics.calculate_manhattan_distance()
 
 # how do we store previous state (so we only explore new states)?
+visitedStates = {}
+
 
 # what even is a tuple? (without asking chaty: a two-value variable?
 # e.g. [123456789, 23] would be our goal state after 23 moves
