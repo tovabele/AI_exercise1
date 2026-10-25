@@ -1,10 +1,9 @@
 import random
 import heuristics
+import node
 
 #using '9' as empty field to allow inversion detection by value
 goal = (1,2,3,4,5,6,7,8,9)
-
-
 
 def generate_starttiles(goal):
     gen_tiles = list(goal)
@@ -45,8 +44,9 @@ print("Goal:      ", goal)
 goal_board = build_board(goal)
 print_board(goal_board)
 
-tiles  = generate_starttiles(goal)
-hamming_distance = heuristics.calculate_hamming(goal, tiles)
+start_tiles  = generate_starttiles(goal)
+
+hamming_distance = heuristics.calculate_hamming(goal, start_tiles)
 manhattan_dist = heuristics.calculate_manhattan_distance(goal, tiles)
 
 print("Generated: ", tiles)
@@ -54,6 +54,8 @@ new_board = build_board(tiles)
 print_board(new_board)
 print ('Hamming distance: ', hamming_distance)
 print ('Manhattan dist.   ', manhattan_dist)
+
+start_node = node.Node(start_tiles, 0, manhattan_dist)
 
 #todos:
  # g(n) costs of path so far
@@ -68,15 +70,20 @@ print ('Manhattan dist.   ', manhattan_dist)
  # heuristics.calculate_hamming() and
  # heuristics.calculate_manhattan_distance()
 
-# how do we store previous state (so we only explore new states)?
-visitedStates = {}
-
-
 # what even is a tuple? (without asking chaty: a two-value variable?
-# e.g. [123456789, 23] would be our goal state after 23 moves
+# e.g. (123456789, 23) would be our goal state after 23 moves
 
 # how do we store states? he mentioned something in python, a list that returns the lowest item first...
+
 # i wrote this down on paper which is in vienna
+# how do we store previous state (so we only explore new states)?
+
+#closed list visited states:
+visitedStates = {}
+
+#add the start node to the visited list, using its costs g
+visitedStates[start_node.state] = start_node.g
+
 
 # find out how many next states(without previous) we have. should be easy:
 # - if tile[4] == 9  > 4(3) states
