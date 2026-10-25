@@ -1,8 +1,15 @@
 import random
 import heuristics
 
+#using '9' as empty field to allow inversion detection by value
+goal = [1,2,3,4,5,6,7,8,9]
+
+state = tuple
+
+
 def generate_tiles():
-    tiles =  [1,2,3,4,5,6,7,8,9]
+    #use array.copy() to prevent shuffling the original list!
+    tiles =  goal.copy()
     random.shuffle(tiles)
     while validate_board(tiles) == False:
         #print(tiles)
@@ -35,7 +42,6 @@ def print_board(board):
     for line in board:
         print (line)
 
-goal = [1,2,3,4,5,6,7,8,9]
 print("Goal:      ", goal)
 goal_board = build_board(goal)
 print_board(goal_board)
