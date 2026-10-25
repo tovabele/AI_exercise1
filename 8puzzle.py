@@ -56,3 +56,31 @@ print_board(new_board)
 print ('Hamming distance: ', hamming_distance)
 print ('Manhattan dist.   ', manhattan_dist)
 
+#todos:
+ # g(n) costs of path so far
+ # should just g(n) +=1 with every new state explored
+
+ # h(n) costs via heuristics man & ham
+ # ...mh, tasty
+
+# anyway. open issues:
+ # follow node with lowest h(n) and sum up costs g(n) so far
+ # we have preliminary h(n) colculations called
+ # heuristics.calculate_hamming() and
+ # heuristics.calculate_manhattan_distance()
+
+# how do we store previous state (so we only explore new states)?
+
+# what even is a tuple? (without asking chaty: a two-value variable?
+# e.g. [123456789, 23] would be our goal state after 23 moves
+
+# how do we store states? he mentioned something in python, a list that returns the lowest item first...
+# i wrote this down on paper which is in vienna
+
+# find out how many next states(without previous) we have. should be easy:
+# - if tile[4] == 9  > 4(3) states
+# - if tile[1 || 3 || 5 || 7] == 9 > 3(2) states
+# - if tile[0 || 2 || 6 || 8] == 9 > 2(1) states
+# 9 being the empty tile
+
+
