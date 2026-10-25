@@ -47,10 +47,10 @@ print_board(goal_board)
 start_tiles  = generate_starttiles(goal)
 
 hamming_distance = heuristics.calculate_hamming(goal, start_tiles)
-manhattan_dist = heuristics.calculate_manhattan_distance(goal, tiles)
+manhattan_dist = heuristics.calculate_manhattan_distance(goal, start_tiles)
 
-print("Generated: ", tiles)
-new_board = build_board(tiles)
+print("Generated: ", start_tiles)
+new_board = build_board(start_tiles)
 print_board(new_board)
 print ('Hamming distance: ', hamming_distance)
 print ('Manhattan dist.   ', manhattan_dist)
