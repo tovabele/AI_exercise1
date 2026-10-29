@@ -20,9 +20,9 @@ def validate_board(tiles):
     for i in range(len(tiles)):
         for j in range(i+1,len(tiles)):
             #ignore blank tile
-            if tiles[i] != 0:
+            if tiles[i] == 0 or tiles[j] == 0:
                 continue
-            if tiles[i] >= tiles[j]:
+            if tiles[i] > tiles[j]:
                 inversions +=1
     #test print(valid)
     if inversions%2 == 0:
@@ -55,7 +55,7 @@ manhattan_dist = heuristics.calculate_manhattan_distance(goal, start_tiles)
 # print("Generated: ", start_tiles)
 # new_board = build_board(start_tiles)
 # print_board(new_board)
-new_board = (1,0,2,3,4,5,6,7,8)
+new_board = (1,2,3,0,4,6,5,8,7)
 validity = validate_board(new_board)
 print ('Solvable: ' , validity)
 print ('Hamming distance: ', hamming_distance)
