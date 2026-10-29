@@ -1,5 +1,15 @@
 # 8 puzzle task:
 
+Definiton:
+- State representation (tuple?)
+- blank tile convention = 0
+- 1 move = blank swaps with valid adjecent tile 
+  (horizontally or vertically)
+- goal state:
+   1 2 3
+   4 5 6
+   7 8
+
 ## generate rnd board
  - [ ] or use fisher-yates: swap from n-1 bis 1 
 
