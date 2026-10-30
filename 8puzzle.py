@@ -1,24 +1,42 @@
 import heuristics
+import board_utils
 from board_utils import build_board, print_board, generate_start_tiles, validate_board, generate_successor_states
-import game_utils
+import run_search
 
 #using '0' as empty field to allow inversion detection by value
 GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
+NUMBER_OF_SEARCHES = 10
 
-start_tiles  = generate_start_tiles(GOAL)
+start_states = run_search.generate_start_states(GOAL, NUMBER_OF_SEARCHES)
+for i, start_state in enumerate(start_states, start=1):
+    board = build_board(start_state)
+    print('-------------------------------------------------------------------------------------------------------')
+    print(f'Search {i}')
+    print_board(board)
+    print(f'\nMANHATTAN: ')
+    manhattan = run_search.run_search(GOAL, start_state, heuristics.calculate_manhattan_distance)
+    print(f'\nHAMMING: ')
+    hamming = run_search.run_search(GOAL, start_state, heuristics.calculate_hamming_distance)
+    print(f'\nZERO ')
+    zero = run_search.run_search(GOAL, start_state, heuristics.zero_heuristic)
 
-new_board = start_tiles
-#new_board = (4, 7, 5, 8, 3, 2, 1, 6, 0)
-start_board = build_board(new_board)
 
-if not validate_board(new_board):
-    exit()
+# start_tiles  = generate_start_tiles(GOAL)
 
-#game_utils.play_game(GOAL, new_board, heuristics.calculate_manhattan_distance)
-#game_utils.play_game(GOAL, new_board, heuristics.calculate_hamming_distance)
-game_utils.play_game(GOAL, new_board, heuristics.zero_heuristic)
+# new_board = start_tiles
+# new_board = (4, 7, 5, 8, 3, 2, 1, 6, 0)
+# start_board = build_board(new_board)
+# print_board(start_board)
 
-#todos:
+# if not validate_board(new_board):
+#     exit()
+
+# game = game_utils.play_game(GOAL, new_board, heuristics.calculate_manhattan_distance)
+# game_utils.play_game(GOAL, new_board, heuristics.calculate_hamming_distance)
+# game_utils.play_game(GOAL, new_board, heuristics.zero_heuristic)
+
+
+# todos:
 # open issues:
 # check:
 # heuristics.calculate_hamming() and

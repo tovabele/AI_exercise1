@@ -1,8 +1,10 @@
 import heapq
+import timeit
 
 import numpy as np
 import board_utils as board
 import node
+
 
 def play_game(goal_state, start_tiles, used_heuristic):
 
@@ -13,6 +15,8 @@ def play_game(goal_state, start_tiles, used_heuristic):
 
     best_cost = {start_node.state: start_node.cost_from_start}
 
+    expanded_nodes = 0
+
     while open_list:
         #find item with the lowest estimated cost to goal and pop of heapq
         _, current_node = heapq.heappop(open_list)
@@ -20,19 +24,24 @@ def play_game(goal_state, start_tiles, used_heuristic):
         if win(goal_state, current_node.state):
             path = reconstruct_path(current_node)
 
-            for state in path:
-                print()
-                board.print_board(board.build_board(state))
-            print('You win! Path length: {}'.format(len(path)))
-            break
+            # for state in path:
+            #     print()
+            #     board.print_board(board.build_board(state))
+            # print('You win! Path length: {}'.format(len(path)))
+            # print ('Expanded nodes: {}'.format(expanded_nodes))
+            return {
+                "expanded_nodes": expanded_nodes,
+            }
 
         # ignore if we already found better path for state
         if current_node.cost_from_start > best_cost[current_node.state]:
             continue
 
+        expanded_nodes += 1
+
         # calculate possible successors
         # add to be explored if new or better
-        #otherwise ignore
+        # otherwise ignore
         successor_states = board.generate_successor_states(current_node)
         for state in successor_states:
             new_cost = current_node.cost_from_start + 1
