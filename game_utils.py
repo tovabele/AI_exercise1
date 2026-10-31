@@ -33,11 +33,6 @@ def play_game(goal_state, start_tiles, used_heuristic):
         if win(goal_state, current_node.state):
             path = reconstruct_path(current_node)
 
-            # for state in path:
-            #     print()
-            #     board.print_board(board.build_board(state))
-            # print('You win! Path length: {}'.format(len(path)))
-            # print ('Expanded nodes: {}'.format(expanded_nodes))
             return {
                 "expanded_nodes": expanded_nodes,
                 "path_length": len(path),
@@ -60,6 +55,7 @@ def play_game(goal_state, start_tiles, used_heuristic):
                 best_cost[state] = new_cost
                 successor_node = node.Node(state, goal_state, new_cost, used_heuristic, current_node)
                 heapq.heappush(open_list, (successor_node.total_estimated_cost, successor_node))
+    return None
 
 
 def reconstruct_expanded_path(current_node, expanded_list):
