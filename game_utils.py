@@ -1,12 +1,36 @@
 import heapq
-
 import numpy as np
 import board_utils as board
 import node
 
-def play_game(goal_state, start_tiles, used_heuristic):
+def win(goal_state, current_state):
+    return np.array_equal(goal_state, current_state)
+
+def reconstruct_expanded_path(current_node, expanded_list):
+    path = []
+    while current_node is not None:
+        if current_node.parent is None:
+            path.append([current_node.state])
+        else:
+            path.append([current_node.state] + expanded_list[current_node.parent])
+        current_node = current_node.parent
+    path.reverse()
+    return path
+    #return path[::-1]
+
+def print_expanded_path(current_node, expanded_dict):
+    expanded_path = reconstruct_expanded_path(current_node, expanded_dict)
+
+    for states in expanded_path:
+        board.print_states(states)
+
+    print('Path length: {}'.format(len(expanded_path)))
+
+def play_game(goal_state, start_tiles, used_heuristic, print_output = True):
 
     start_node = node.Node(start_tiles, goal_state, 0, used_heuristic)
+
+    expanded_dict = {}
 
     open_list = []
     heapq.heappush(open_list, (start_node.estimated_cost_to_goal, start_node))
@@ -18,12 +42,8 @@ def play_game(goal_state, start_tiles, used_heuristic):
         _, current_node = heapq.heappop(open_list)
 
         if win(goal_state, current_node.state):
-            path = reconstruct_path(current_node)
-
-            for state in path:
-                print()
-                board.print_board(board.build_board(state))
-            print('You win! Path length: {}'.format(len(path)))
+            if print_output:
+                print_expanded_path(current_node, expanded_dict)
             break
 
         # ignore if we already found better path for state
@@ -34,6 +54,7 @@ def play_game(goal_state, start_tiles, used_heuristic):
         # add to be explored if new or better
         #otherwise ignore
         successor_states = board.generate_successor_states(current_node)
+        expanded_dict[current_node] = successor_states
         for state in successor_states:
             new_cost = current_node.cost_from_start + 1
 
@@ -42,15 +63,4 @@ def play_game(goal_state, start_tiles, used_heuristic):
                 successor_node = node.Node(state, goal_state, new_cost, used_heuristic, current_node)
                 heapq.heappush(open_list, (successor_node.total_estimated_cost, successor_node))
 
-
-def reconstruct_path(current_node):
-    path = []
-    while current_node is not None:
-        path.append(current_node.state)
-        current_node = current_node.parent
-    path.reverse()
-    return path
-    #return path[::-1]
-
-def win(goal_state, current_state):
-    return np.array_equal(goal_state, current_state)
+    return len(expanded_dict), len(open_list)

@@ -1,5 +1,5 @@
 import heuristics
-from board_utils import build_board, print_board, generate_start_tiles, validate_board, generate_successor_states
+from board_utils import build_board, generate_start_tiles, validate_board, generate_successor_states
 import game_utils
 
 #using '0' as empty field to allow inversion detection by value
@@ -16,8 +16,10 @@ if not validate_board(new_board):
 
 #game_utils.play_game(GOAL, new_board, heuristics.calculate_manhattan_distance)
 #game_utils.play_game(GOAL, new_board, heuristics.calculate_hamming_distance)
-game_utils.play_game(GOAL, new_board, heuristics.zero_heuristic)
+(seen_states, states_in_queue) = game_utils.play_game(GOAL, new_board, heuristics.zero_heuristic)
 
+print("Calculated states: {}".format(seen_states))
+print("Queued states: {}".format(states_in_queue))
 #todos:
 # open issues:
 # check:
