@@ -6,6 +6,24 @@ def build_board(board_array):
 def print_board(board):
     print(np.matrix(board))
 
+def print_states(states):
+    boards = []
+    for state in states:
+        boards.append(build_board(state))
+
+    for rows in zip(*boards):
+        first_board = " ".join(str(tile) for tile in rows[0])
+        other_boards = "    ".join(
+            " ".join(str(tile) for tile in row)
+            for row in rows[1:]
+        )
+
+        if other_boards:
+            print(first_board + "  |  " + other_boards)
+        else:
+            print(first_board)
+    print()
+
 def validate_board(tiles):
     inversions = 0
 
