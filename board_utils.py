@@ -30,6 +30,19 @@ def generate_start_tiles(goal):
     # return immutable object
     return tuple(gen_tiles)
 
+# Input: goal state & amount of desired start states
+# Output: List of x-amount of start states
+# Create and validate x random start states
+def generate_start_states(goal, number_of_states):
+    start_states = []
+
+    while len(start_states) < number_of_states:
+        start_state = generate_start_tiles(goal)
+        if validate_board(start_state):
+            start_states.append(start_state)
+
+    return start_states
+
 # One move = blank position change
 # Input = puzzle state
 # Output = legal puzzle states after 1 move
@@ -80,3 +93,5 @@ def generate_successor_states(node):
         next_states.append(tuple(neighbor_state))
 
     return next_states
+
+

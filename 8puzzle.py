@@ -7,19 +7,13 @@ import run_search
 GOAL = (1, 2, 3, 4, 5, 6, 7, 8, 0)
 NUMBER_OF_SEARCHES = 10
 
-start_states = run_search.generate_start_states(GOAL, NUMBER_OF_SEARCHES)
-for i, start_state in enumerate(start_states, start=1):
-    board = build_board(start_state)
-    print('-------------------------------------------------------------------------------------------------------')
-    print(f'Search {i}')
-    print_board(board)
-    print(f'\nMANHATTAN: ')
-    manhattan = run_search.run_search(GOAL, start_state, heuristics.calculate_manhattan_distance)
-    print(f'\nHAMMING: ')
-    hamming = run_search.run_search(GOAL, start_state, heuristics.calculate_hamming_distance)
-    print(f'\nZERO ')
-    zero = run_search.run_search(GOAL, start_state, heuristics.zero_heuristic)
+start_states = board_utils.generate_start_states(GOAL, NUMBER_OF_SEARCHES)
 
+experiment_results = run_search.run_experiment(GOAL, start_states)
+
+run_search.print_experiment_results(experiment_results)
+
+# run_search.run_all_heuristics(GOAL, start_states, NUMBER_OF_SEARCHES)
 
 # start_tiles  = generate_start_tiles(GOAL)
 
@@ -51,7 +45,7 @@ for i, start_state in enumerate(start_states, start=1):
 # how do we store previous state (so we only explore new states)?
 
 #closed list visited states:
-visitedStates = {}
+# visitedStates = {}
 
 #add the start node to the visited list, using its costs g
 #visitedStates[start_node.state] = start_node.cost_from_start

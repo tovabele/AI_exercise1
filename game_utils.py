@@ -31,6 +31,7 @@ def play_game(goal_state, start_tiles, used_heuristic):
             # print ('Expanded nodes: {}'.format(expanded_nodes))
             return {
                 "expanded_nodes": expanded_nodes,
+                "path_length": len(path),
             }
 
         # ignore if we already found better path for state
