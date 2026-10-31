@@ -4,7 +4,7 @@ def build_board(board_array):
     return np.reshape(board_array, (-1, 3))
 
 def print_board(board):
-    print(np.matrix(board))
+    print(board)
 
 def print_states(states):
     boards = []

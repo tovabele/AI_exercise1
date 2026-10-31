@@ -5,9 +5,8 @@ class Node:
     def __init__(self, state, goal_state, cost_from_start=0, heuristic=heuristics.calculate_hamming_distance, parent=None):
         self.parent = parent
         self.state = state
-        self.heuristic = heuristic
         self.cost_from_start = cost_from_start
-        self.estimated_cost_to_goal = self._calculate_estimated_cost(goal_state)
+        self.estimated_cost_to_goal = self._calculate_estimated_cost(goal_state, heuristic)
         self.total_estimated_cost = self.cost_from_start + self.estimated_cost_to_goal
 
     def __lt__(self, other):
@@ -16,5 +15,5 @@ class Node:
     def validate_board_state(self):
         return validate_board(self.state)
 
-    def _calculate_estimated_cost(self, goal_state):
-        return self.heuristic(goal_state, self.state)
+    def _calculate_estimated_cost(self, goal_state, heuristic):
+        return heuristic(goal_state, self.state)
