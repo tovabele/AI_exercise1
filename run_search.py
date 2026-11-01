@@ -80,7 +80,7 @@ def print_experiment_results(experiment_results):
         start_state = state_result["start_state"]
         result = state_result["results"]
 
-        print("\n" + "-" *90)
+        print("\n" + "-" * 90)
         print(f"Search {i}")
         print(f"Start state:")
 
